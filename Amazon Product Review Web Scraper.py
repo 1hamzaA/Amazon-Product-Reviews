@@ -11,7 +11,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-driver = webdriver.Chrome("C:/Users/akhtam3/Downloads/chromedriver_win32/chromedriver.exe")
+driver = webdriver.Chrome("C:/Users/xxx/chromedriver.exe")
 
 
 ## Create Functions for Extracting Target Data
@@ -102,4 +102,4 @@ print(df)
 df = df.reset_index()
 #rev={'reviews':reviews} #converting the reviews list into a dictionary
 #review_data=pd.DataFrame.from_dict(rev) #converting this dictionary into a dataframe
-df.to_csv(r'C:\Users\akhtam3\OneDrive - Highways England\Desktop\Practise\Web Scraping - Amazon Reviews\Raw Data.csv', index=False)    
+df.to_csv(r'C:\Users\xxx\Raw Data.csv', index=False)    
