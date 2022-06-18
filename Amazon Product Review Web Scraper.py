@@ -35,22 +35,19 @@ def Searchreviews(review_link):
     return driver.page_source
 
 
-
+# Create list of products (using ASINs) for which reviews shall be extracted
     
 ASINS=[]
-response=getAmazonSearch('cricket+bat')
+response=getAmazonSearch('cricket+bat')  # Searching Amazon for Cricket Bats
 soup=BeautifulSoup(response, "lxml")
 
 for i in soup.findAll("div",{'class':"sg-col-4-of-12 s-result-item s-asin sg-col-4-of-16 AdHolder sg-col s-widget-spacing-small sg-col-4-of-20"}):
-   # print(i)
     ASINS.append(i['data-asin'])   
 for i in soup.findAll("div",{'class':"sg-col-4-of-12 s-result-item s-asin sg-col-4-of-16 sg-col s-widget-spacing-small sg-col-4-of-20"}):
-   # print(i)
-    ASINS.append(i['data-asin'])   
-#print(data_asin)    
+    ASINS.append(i['data-asin'])    
 
 
-
+# Create list of urls for product review pages
 
 ProductReviewLinks=[]
 
@@ -63,6 +60,8 @@ for i in range(len(ASINS)):
 print(ProductReviewLinks) 
 
       
+# Extracting various data from product review pages
+
 
 ProductName=[]
 SellerName=[]
@@ -92,14 +91,11 @@ for j in range(len(ProductReviewLinks)):
                         ReviewComment.append(l.text.split("\n"))  
                         
 
-       
-          
+# Reshaping all extracted data into a datafram    
             
 df = pd.DataFrame({'Product Title': ProductName, 'Seller Name': SellerName, 'Review':ReviewComment, 'Rating':ReviewRating})
 df=  df.apply(lambda x: x.replace('[','').replace(']','')) 
 
 print(df)
 df = df.reset_index()
-#rev={'reviews':reviews} #converting the reviews list into a dictionary
-#review_data=pd.DataFrame.from_dict(rev) #converting this dictionary into a dataframe
 df.to_csv(r'C:\Users\xxx\Raw Data.csv', index=False)    
